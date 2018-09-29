@@ -139,7 +139,7 @@
                 "command": "echo SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head-n 1) > /tmp/secret"
               },
               "02-install-postgresql": {
-                "command": "curl -o- https://gist.githubusercontent.com/unshift/a4ecf2f2e72d846fe8112274c2bbae4c/raw/91a399144af2436ab8cdee03301e9b1bae884a40/install.sh | bash"
+                "command": "curl -o- https://raw.githubusercontent.com/unshift/postgresql-ec2/master/install.sh | bash"
               },  
               "03-signal-done": {
                 "command": {
