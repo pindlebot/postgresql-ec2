@@ -1,0 +1,10 @@
+{
+  "name": "postgres",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "create-stack": "aws --region us-east-1 cloudformation create-stack --template-body file://cf.json --stack-name postgres-4 --capabilities CAPABILITY_IAM"
+  },
+  "dependencies": {}
+}
