@@ -30,3 +30,15 @@ sed -i 's|#port = 5432|port = 5432|' /var/lib/pgsql/10/data/postgresql.conf
 systemctl restart postgresql-10
 source /tmp/secret
 psql -U postgres -d postgres -c "ALTER USER postgres WITH PASSWORD '$SECRET_TOKEN';"
+
+export PATH=$PATH:/usr/pgsql-10/bin/
+
+yum install -y git
+yum install -y libcurl-devel
+yum install -y gcc
+
+cd /tmp && git clone https://github.com/pramsey/pgsql-http.git
+cd pgsql-http && make && make install
+
+cd /tmp && git clone https://github.com/citusdata/pg_cron.git
+cd pg_cron && make && make install
