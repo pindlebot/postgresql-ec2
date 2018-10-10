@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) > /tmp/secret
+echo SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n1) > /tmp/secret
 
 cd /tmp
 yum list postgresql10-libs || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-libs-10.5-1PGDG.rhel7.x86_64.rpm
