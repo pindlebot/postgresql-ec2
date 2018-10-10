@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/bash -v
 
-# SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n1)
-# echo "SECRET_TOKEN=$SECRET_TOKEN" > /tmp/secret
+SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+echo "SECRET_TOKEN=$SECRET_TOKEN" > /tmp/secret
 
 yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-libs-10.5-1PGDG.rhel7.x86_64.rpm
 yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-10.5-1PGDG.rhel7.x86_64.rpm
@@ -21,9 +21,7 @@ sed -i 's|#shared_preload_libraries = \x27\x27|shared_preload_libraries = \x27pg
 echo "cron.database_name = 'postgres'" >> /var/lib/pgsql/10/data/postgresql.conf
 
 systemctl start postgresql-10
-
-# source /tmp/secret
-# psql -U postgres -d postgres -c "ALTER USER postgres WITH PASSWORD '$SECRET_TOKEN';"
+psql -U postgres -d postgres -c "ALTER USER postgres WITH PASSWORD '$SECRET_TOKEN';"
 
 export PATH=$PATH:/usr/pgsql-10/bin/
 
