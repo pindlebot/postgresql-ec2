@@ -131,7 +131,7 @@
             },
             "commands": {
               "01-install-postgresql": {
-                "command": "sh /tmp/install.sh"
+                "command": "/tmp/install.sh"
               }
             }
           }
