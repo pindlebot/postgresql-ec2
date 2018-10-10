@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -v
 
 SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n1)
 echo "SECRET_TOKEN=$SECRET_TOKEN" > /tmp/secret
