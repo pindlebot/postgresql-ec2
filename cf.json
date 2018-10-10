@@ -4,7 +4,7 @@
   "Parameters": {
     "InstanceType": {
       "Type": "String",
-      "Default": "t2.micro"
+      "Default": "t2.small"
     },
     "VpcId": {
       "Type": "String",
@@ -114,10 +114,33 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "config": {
-            "packages": {},
+            "packages": {
+              "rpm": {
+                "postgresql10-libs": "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-libs-10.5-1PGDG.rhel7.x86_64.rpm",
+                "postgresql10": "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-10.5-1PGDG.rhel7.x86_64.rpm",
+                "postgresql10-contrib": "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-contrib-10.5-1PGDG.rhel7.x86_64.rpm",
+                "postgresql10-devel": "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-devel-10.5-1PGDG.rhel7.x86_64.rpm",
+                "postgresql10-server": "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-server-10.5-1PGDG.rhel7.x86_64.rpm",
+                "postgresql10-test": "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-test-10.5-1PGDG.rhel7.x86_64.rpm",
+                "postgresql10-pltcl": "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-pltcl-10.5-1PGDG.rhel7.x86_64.rpm"
+              },
+              "yum": {
+                "git": [],
+                "libcurl-devel": [],
+                "gcc": []
+              }
+            },
+            "files": {
+              "/tmp/install.sh": {
+                "source": "https://raw.githubusercontent.com/unshift/postgresql-ec2/master/install.sh",
+                "mode": "000644",
+                "owner": "root",
+                "group": "root"
+              }
+            },
             "commands": {
               "01-install-postgresql": {
-                "command": "curl -o- https://raw.githubusercontent.com/unshift/postgresql-ec2/master/install.sh | bash"
+                "command": "sh /tmp/install.sh > /tmp/01-install-postgresql.log"
               }
             }
           }
@@ -149,7 +172,7 @@
                 "echo timeout=60 >> /etc/yum.conf\n",
                 "echo retries=20 >> /etc/yum.conf\n",
                 "yum update -y -q aws-cfn-bootstrap\n",
-                "/opt/aws/bin/cfn-init -s ",
+                "/opt/aws/bin/cfn-init --verbose -s ",
                 { "Ref": "AWS::StackName" },
                 " --resource Instance ",
                 "--region ",

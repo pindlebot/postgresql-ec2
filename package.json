@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "create-stack": "aws --region us-east-1 cloudformation create-stack --template-body file://cf.json --stack-name postgres-2 --capabilities CAPABILITY_IAM"
+    "create-stack": "aws --region us-east-1 cloudformation create-stack --template-body file://cf.json --stack-name postgres --capabilities CAPABILITY_IAM"
   },
   "dependencies": {}
 }
