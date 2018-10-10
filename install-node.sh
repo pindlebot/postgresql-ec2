@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -v
 
 su ec2-user -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash"
 su ec2-user -c "source /home/ec2-user/.nvm/nvm.sh && nvm install node"
