@@ -1,27 +1,19 @@
 #!/usr/bin/env bash
 
-set -e
-
-err_report() {
-  echo "Error on line $1"
-}
-
-trap 'err_report $LINENO' ERR
-
-# echo SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) > /tmp/secret
+echo SECRET_TOKEN=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1) > /tmp/secret
 
 cd /tmp
-yum list postgresql10-libs || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-libs-10.5-1PGDG.rhel7.x86_64.rpm || true
-yum list postgresql10-10.5 || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-10.5-1PGDG.rhel7.x86_64.rpm || true
-yum list postgresql10-contrib || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-contrib-10.5-1PGDG.rhel7.x86_64.rpm || true
-yum list postgresql10-devel || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-devel-10.5-1PGDG.rhel7.x86_64.rpm || true
-yum list postgresql10-server || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-server-10.5-1PGDG.rhel7.x86_64.rpm || true
-yum list postgresql10-test || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-test-10.5-1PGDG.rhel7.x86_64.rpm || true
-yum list postgresql10-pltcl || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-pltcl-10.5-1PGDG.rhel7.x86_64.rpm || true
+yum list postgresql10-libs || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-libs-10.5-1PGDG.rhel7.x86_64.rpm
+yum list postgresql10-10.5 || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-10.5-1PGDG.rhel7.x86_64.rpm
+yum list postgresql10-contrib || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-contrib-10.5-1PGDG.rhel7.x86_64.rpm
+yum list postgresql10-devel || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-devel-10.5-1PGDG.rhel7.x86_64.rpm
+yum list postgresql10-server || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-server-10.5-1PGDG.rhel7.x86_64.rpm
+yum list postgresql10-test || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-test-10.5-1PGDG.rhel7.x86_64.rpm
+yum list postgresql10-pltcl || yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/postgresql10-pltcl-10.5-1PGDG.rhel7.x86_64.rpm
 
-/usr/pgsql-10/bin/postgresql-10-setup initdb || true
-systemctl enable postgresql-10 || true
-systemctl start postgresql-10 || true
+/usr/pgsql-10/bin/postgresql-10-setup initdb
+systemctl enable postgresql-10
+systemctl start postgresql-10
 
 # sed -i 's|all                                     ident|all                                     trust|' /var/lib/pgsql/10/data/pg_hba.conf
 # sed -i 's|127.0.0.1/32|0.0.0.0/0|' /var/lib/pgsql/10/data/pg_hba.conf
