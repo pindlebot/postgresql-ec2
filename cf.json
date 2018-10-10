@@ -124,14 +124,14 @@
             "files": {
               "/tmp/install.sh": {
                 "source": "https://raw.githubusercontent.com/unshift/postgresql-ec2/master/install.sh",
-                "mode": "000644",
+                "mode": "000777",
                 "owner": "root",
                 "group": "root"
               }
             },
             "commands": {
               "01-install-postgresql": {
-                "command": "sh /tmp/install.sh > /tmp/01-install-postgresql.log"
+                "command": "sh /tmp/install.sh"
               }
             }
           }
