@@ -4,7 +4,7 @@
   "Parameters": {
     "InstanceType": {
       "Type": "String",
-      "Default": "t2.small"
+      "Default": "t2.micro"
     },
     "VpcId": {
       "Type": "String",

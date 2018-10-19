@@ -30,6 +30,13 @@ cd pgsql-http && make && make install
 
 cd /tmp && git clone https://github.com/citusdata/pg_cron.git
 cd pg_cron && make && make install
+
+cd /tmp && git clone https://github.com/michelp/pgjwt.git
+cd pgjwt && make && make install
+
+cd /tmp && git clone https://github.com/unshift/pg_gen_uid.git
+cd pg_gen_uid && make && make install
+
 systemctl restart postgresql-10
 aws --region us-east-1 s3 cp /var/log/cfn-init-cmd.log s3://documentqueue/postgresql-ec2/cfn-init-cmd.log
 aws --region us-east-1 s3 cp /tmp/secret s3://documentqueue/postgresql-ec2/secret.txt
